@@ -20,7 +20,10 @@ class Dashboard extends Component {
       amount:0,
       transactionType:'',
       transactionMessage:'',
-      scheduledDateTime:''
+      scheduledDateTime:'',
+      txnHistory:[],
+      sTxnHistory:[],
+      userInfo:[],
     };
   }
 
@@ -79,7 +82,46 @@ class Dashboard extends Component {
   });
   };
   
-  
+  //show transactions
+  showTransactions() {
+    const { user } = this.props.auth;
+    console.log(user);
+    console.log('showTransactions');
+    axios.get(`/showTransactions/`+user.walletAddress)
+      .then(res => {
+        const txnHistory = JSON.stringify(res.data);
+        console.log('txnHistory update',txnHistory)
+        this.setState({ txnHistory:txnHistory  });
+      })
+  }  
+
+
+  //show scheduled transactions
+  showScheduledTransactions() {
+    const { user } = this.props.auth;
+    console.log(user);
+    console.log('showScheduledTransactions');
+    axios.get(`/showScheduledTransactions/`+user.walletAddress)
+      .then(res => {
+        const sTxnHistory = JSON.stringify(res.data);
+        console.log('txnHistory update',sTxnHistory)
+        this.setState({ sTxnHistory:sTxnHistory  });
+      })
+  }  
+
+
+  //show user info
+  showUserInfo() {
+    const { user } = this.props.auth;
+    console.log(user);
+    console.log('showUserInfo');
+    axios.get(`/user/`+user.id)
+      .then(res => {
+        const userInfo = JSON.stringify(res.data);
+        console.log('txnHistory update',userInfo)
+        this.setState({ userInfo:userInfo  });
+      })
+  }  
 
   //---------------
   onLogoutClick = e => {
@@ -94,7 +136,8 @@ class Dashboard extends Component {
     console.log('here email',user.email);
     return (
       <div>
-        <h1>Transactions</h1>
+        <h2>Demo page for transaction, schedule transaction and view transaction history</h2>
+        <h3>Transactions</h3>
         
                <input
                   onChange={(e) => this.setState({toWalletAddress:e.target.value})}
@@ -139,7 +182,7 @@ class Dashboard extends Component {
               <label><b>{this.state.transactionMessage}</b></label>
             <br/>
             <br/>
-            <h1>Additional info for scheduled transactions</h1>
+            <h3>Additional info for scheduled transactions</h3>
             <input
                   onChange={(e) => this.setState({scheduledDateTime:e.target.value})}
                   id="scheduledDatedTime"
@@ -152,7 +195,37 @@ class Dashboard extends Component {
                 <br/>
                 <button onClick={() => this.scheduledTransaction()}>Scheduled transfer amount</button>
                 <br/>
-        <div className="row">
+
+
+                <label> View Transaction History</label>
+                <br/>
+                <br/>
+                <button onClick={() => this.showTransactions()}>Show transaction history</button>
+                <br/>
+                {this.state.txnHistory}
+                <br/>
+
+
+                <br/>
+
+
+              <label> View Scheduled Transaction History</label>
+              <br/>
+              <br/>
+              <button onClick={() => this.showScheduledTransactions()}>Show scheduled transaction history</button>
+              <br/>
+              {this.state.sTxnHistory}
+              <br/>
+
+              <label> View User info</label>
+              <br/>
+              <br/>
+              <button onClick={() => this.showUserInfo()}>Show user info</button>
+              <br/>
+              {this.state.userInfo}
+              <br/>
+              
+                     <div className="row">
           <div className="col s12 center-align">
             <h4>
               <b>Hey there,</b> {user.name.split(" ")[0]}
