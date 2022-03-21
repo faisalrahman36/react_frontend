@@ -1,4 +1,4 @@
-Basic front end React App for: https://github.com/faisalrahman36/NodeJS_ExpressJS_MongoDB
+This is a basic demo front end React App for: https://github.com/faisalrahman36/NodeJS_ExpressJS_MongoDB
 
 References and useful links:
 
