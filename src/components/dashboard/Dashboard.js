@@ -3,13 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import axios from "axios";
-/*
-const [toWalletAddress,setToWalletAddress]=useState('');
-const [oderDescription,setOrderDescription]=useState('');
-const [amount,setAmount]=useState(0);
-const [transactionType,setTransactionType]=useState('');
-const [transactionMessage,setTransactionMessage]=useState('');
-*/
+
 
 class Dashboard extends Component {
   constructor(props) {
